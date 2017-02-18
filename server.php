@@ -1,6 +1,6 @@
 <?php
 include("config.php");
-$host = 'http://language-exchange-cafe-chat.herokuapp.com';
+$host = 'language-exchange-cafe-chat.herokuapp.com';
 $port = '9000';
 $null = NULL;
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
