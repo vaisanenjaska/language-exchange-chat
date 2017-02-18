@@ -79,7 +79,7 @@ input[type=text]{
 </head>
 <body>
 <?php
-include("../database/config.php");
+include("config.php");
 $target = $_POST["chatTarget"];
 $username = $_POST["username"];
 ?>
