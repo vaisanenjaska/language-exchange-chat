@@ -91,7 +91,7 @@ $username = $_POST["username"];
 <script language="javascript" type="text/javascript">
 $(document).ready(function(){
 
-	var wsUri = "ws://language-exchange-cafe-chat.herokuapp.com/server.php:443";
+	var wsUri = "ws://language-exchange-cafe-chat.herokuapp.com/server.php";
 	websocket = new WebSocket(wsUri);
 
 	websocket.onopen = function(ev) {}
