@@ -98,8 +98,8 @@ $(document).ready(function(){
 
 	$('#send-btn').click(function(){
 		var mymessage = $('#message').val();
-		var myname = "<?php echo $username ?>";
-		var target = <?php echo $target ?>;
+		var myname = "jaska";
+		var target = 7;
 
 		if(mymessage == ""){
 			alert("Enter Some message Please!");
