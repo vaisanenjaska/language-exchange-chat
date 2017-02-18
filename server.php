@@ -1,7 +1,7 @@
 <?php
 include("config.php");
 $host = 'language-exchange-cafe-chat.herokuapp.com';
-$port = '9000';
+$port = '443';
 $null = NULL;
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
@@ -111,7 +111,7 @@ function perform_handshaking($receved_header,$client_conn, $host, $port)
 	"Upgrade: websocket\r\n" .
 	"Connection: Upgrade\r\n" .
 	"WebSocket-Origin: $host\r\n" .
-	"WebSocket-Location: ws://$host/shout.php\r\n".
+	"WebSocket-Location: ws://$host:$port/shout.php\r\n".
 	"Sec-WebSocket-Accept:$secAccept\r\n\r\n";
 	socket_write($client_conn,$upgrade,strlen($upgrade));
 }
