@@ -10,6 +10,10 @@ const server = express()
 
 const io = socketIO(server);
 
+express.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
