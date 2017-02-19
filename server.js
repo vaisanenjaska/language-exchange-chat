@@ -6,13 +6,10 @@ var connection = require('./config.js').connection;
 var PORT = 3000;
 
 var server = app()
+  .use((req, res) => res.sendFile('index.html') )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 var io = socketIO(server);
-
-app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
 
 io.on('connection', function(socket){
   console.log('a user connected');
