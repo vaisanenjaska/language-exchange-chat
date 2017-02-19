@@ -1,7 +1,6 @@
 var app = require('express')();
 var path = require('path');
 var http = require('http').Server(app);
-// {origins:'localhost:* language-exchange-cafe.herokuapp.com:* http://language-exchange-cafe.herokuapp.com:*'}
 var io = require('socket.io')(http);
 var connection = require('./config.js').connection;
 
@@ -25,14 +24,20 @@ io.on('connection', function(socket){
     idQuery.on('result', function(row, err) {
       if (err) throw err;
       var user = row.user_id;
-      var queryString = "INSERT INTO Message(user_id,text,target_user) VALUES('" + user + "','" + message + "','" + target + "')";
-      connection.query(queryString, function(err) {
-          if (err) throw err;
-      });
+      var targetQuery = connection.query("Select name from User where user_id = '" + target + "'");
+      targetQuery.on('result', function(row, err) {
+        if (err) throw err;
+        var targetName = row.name;
+        var queryString = "INSERT INTO Message(user_id,text,target_user) VALUES('" + user + "','" + message + "','" + target + "')";
+        connection.query(queryString, function(err) {
+            if (err) throw err;
+        });
+      })
     })
     var msgArr = {
       name: name,
-      message: message
+      message: message,
+      target: targetName
     }
     io.emit('chat message', JSON.stringify(msgArr));
   });
