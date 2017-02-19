@@ -1,4 +1,4 @@
-var app = require('express')();
+var express = require('express')();
 var path = require('path');
 var http = require('http').Server(app);
 var socketIO = require('socket.io')(http);
@@ -9,10 +9,6 @@ const server = express()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = socketIO(server);
-
-app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
 
 io.on('connection', function(socket){
   console.log('a user connected');
