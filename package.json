@@ -1,0 +1,28 @@
+{
+  "name": "language-exchange-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "6.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaisanenjaska/language-exchange-chat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaisanenjaska/language-exchange-chat/issues"
+  },
+  "homepage": "https://github.com/vaisanenjaska/language-exchange-chat#readme",
+  "dependencies": {
+    "express": "4.14.1",
+    "mysql": "^2.13.0",
+    "socket.io": "1.7.3"
+  }
+}
