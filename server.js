@@ -4,10 +4,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var connection = require('./config.js').connection;
 
-app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
