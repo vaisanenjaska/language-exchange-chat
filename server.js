@@ -3,12 +3,12 @@ var path = require('path');
 var http = require('http').Server(app);
 var socketIO = require('socket.io')(http);
 var connection = require('./config.js').connection;
-const PORT = process.env.PORT || 3000;
+var PORT = 3000;
 
-const server = app()
+var server = app()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const io = socketIO(server);
+var io = socketIO(server);
 
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, 'index.html'));
