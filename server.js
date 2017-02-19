@@ -1,6 +1,6 @@
 var express = require('express')();
 var path = require('path');
-var http = require('http').Server(app);
+var http = require('http').Server(express);
 var socketIO = require('socket.io')(http);
 var connection = require('./config.js').connection;
 const PORT = process.env.PORT || 3000;
