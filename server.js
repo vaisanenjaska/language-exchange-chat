@@ -17,18 +17,43 @@ io.on('connection', function(socket){
     var m = JSON.parse(msg);
     var message = m['message'];
     var name = m['name'];
-    var target = m['target'];
+    if (m['target'] != undefined) {
+      var target = m['target'];
+    } else if (m['group'] != undefined) {
+      var group = m['group'];
+    }
     var targetName;
 
     connection.connect;
-    var targetQuery = connection.query("Select name from User where user_id = '" + target + "'");
-    targetQuery.on('result', function(row, err) {
-      if (err) throw err;
-      targetName = row.name;
+    if (target != undefined) {
+      var Query = connection.query("Select name from User where user_id = '" + target + "'");
+      Query.on('result', function(row, err) {
+        if (err) throw err;
+        targetName = row.name;
+        var msgArr = {
+          name: name,
+          message: message,
+          target: targetName
+        }
+        io.emit('chat message', JSON.stringify(msgArr));
+        var idQuery = connection.query("Select user_id from User where name = '" + name + "'");
+        idQuery.on('result', function(row, err) {
+          if (err) throw err;
+          var user = row.user_id;
+
+          if(user && targetName) {
+            var queryString = "INSERT INTO Message(user_id,text,target_user) VALUES('" + user + "','" + message + "','" + target + "')";
+            connection.query(queryString, function(err) {
+                if (err) throw err;
+            });
+          }
+        })
+      })
+    } else if (group != undefined) {
       var msgArr = {
         name: name,
         message: message,
-        target: targetName
+        group: group
       }
       io.emit('chat message', JSON.stringify(msgArr));
       var idQuery = connection.query("Select user_id from User where name = '" + name + "'");
@@ -36,14 +61,14 @@ io.on('connection', function(socket){
         if (err) throw err;
         var user = row.user_id;
 
-        if(user && targetName) {
-          var queryString = "INSERT INTO Message(user_id,text,target_user) VALUES('" + user + "','" + message + "','" + target + "')";
+        if(user) {
+          var queryString = "INSERT INTO Message(user_id,text,group_id) VALUES('" + user + "','" + message + "','" + group + "')";
           connection.query(queryString, function(err) {
               if (err) throw err;
           });
         }
       })
-    })
+    }
   });
 });
 
