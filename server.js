@@ -28,10 +28,12 @@ io.on('connection', function(socket){
       targetQuery.on('result', function(row, err) {
         if (err) throw err;
         var targetName = row.name;
-        var queryString = "INSERT INTO Message(user_id,text,target_user) VALUES('" + user + "','" + message + "','" + target + "')";
-        connection.query(queryString, function(err) {
-            if (err) throw err;
-        });
+        if(user && targetName) {
+          var queryString = "INSERT INTO Message(user_id,text,target_user) VALUES('" + user + "','" + message + "','" + target + "')";
+          connection.query(queryString, function(err) {
+              if (err) throw err;
+          });
+        }
       })
     })
     var msgArr = {
