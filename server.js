@@ -1,6 +1,6 @@
 var app = require('express')();
 var path = require('path');
-var http = require('http').Server(app);
+var http = require('http').Server(app), {origins:'language-exchange-cafe.herokuapp.com:* http://language-exchange-cafe.herokuapp.com:*'};
 var io = require('socket.io')(http);
 var connection = require('./config.js').connection;
 
