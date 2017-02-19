@@ -18,6 +18,7 @@ io.on('connection', function(socket){
     var message = m['message'];
     var name = m['name'];
     var target = m['target'];
+    var targetName;
 
     connection.connect;
     var idQuery = connection.query("Select user_id from User where name = '" + name + "'");
@@ -27,7 +28,7 @@ io.on('connection', function(socket){
       var targetQuery = connection.query("Select name from User where user_id = '" + target + "'");
       targetQuery.on('result', function(row, err) {
         if (err) throw err;
-        var targetName = row.name;
+        targetName = row.name;
         if(user && targetName) {
           var queryString = "INSERT INTO Message(user_id,text,target_user) VALUES('" + user + "','" + message + "','" + target + "')";
           connection.query(queryString, function(err) {
